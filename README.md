@@ -9,28 +9,10 @@ Toni Comerma
 
 Abstract
 ----------
-blah blah....
+An elk (Elastisearch, Logstash and Kibana) setup for analysing Oracle Diva Archive statistics
+Details at https://github.com/tcomerma/divaStats/wiki
 
 
-This work has been done while working for Corporació Catalana de Mitjans Audiovisuals, the
-public broadcaster of Catalonia
-
-More details on the wiki page
-
-Note: These are, right now, a bunch of scripts for loading data to elk. There's no setup process or similar
-
-
-Components
-----------
-
-
-Install instructions
-----------
-you need
-* Virtualbox
-* Vagrant
-* Ansible
-Sorry. Ansible does not works on Windows. There are some workarounds you can try (https://www.azavea.com/blog/2014/10/30/running-vagrant-with-ansible-provisioning-on-windows/)
 
 Usage
 ---------
