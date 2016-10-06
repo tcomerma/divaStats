@@ -1,0 +1,6 @@
+{
+  "name": "Divastats",
+  "tagline": "Use Elasticsearch/Logstash/Kibana to visualize Oracle Diva Statistics",
+  "body": "divaStats - Load Oracle (formerly Front Porch) Diva Archive statistics into elk\r\n==========\r\n\r\nAuthors\r\n----------\r\nMoises Panisello\r\nToni Comerma\r\n\r\n\r\nAbstract\r\n----------\r\nblah blah....\r\n\r\n\r\nThis work has been done while working for Corporació Catalana de Mitjans Audiovisuals, the\r\npublic broadcaster of Catalonia\r\n\r\nMore details on the wiki page\r\n\r\nNote: These are, right now, a bunch of scripts for loading data to elk. There's no setup process or similar\r\n\r\n\r\nComponents\r\n----------\r\n\r\n\r\nInstall instructions\r\n----------\r\nyou need\r\n* Virtualbox\r\n* Vagrant\r\n* Ansible\r\nSorry. Ansible does not works on Windows. There are some workarounds you can try (https://www.azavea.com/blog/2014/10/30/running-vagrant-with-ansible-provisioning-on-windows/)\r\n\r\nUsage\r\n---------\r\nKibana: http://localhost:8080/kibana4/\r\n\r\nKopf (For admintering indexes): http://localhost:8080/_plugin/kopf/\r\n",
+  "note": "Don't delete this file! It's used internally to help with page regeneration."
+}
