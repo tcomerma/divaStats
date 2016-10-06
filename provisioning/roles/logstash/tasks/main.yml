@@ -1,0 +1,46 @@
+---
+# This role logstash
+
+- name: Clau GPG del repository logstash
+  rpm_key: state=present key=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+
+- name: Afegir repository elasticsearch
+  copy: src=logstash-2.4.repo
+        dest=/etc/yum.repos.d/
+        owner=root group=root mode=0644
+
+- name: Paquets a instal.lar
+  yum: name={{ item }} state=present
+  with_items:
+      - logstash
+#      - logstash-contrib
+      - python-pip
+
+- name: Arrancada automatica de logstash
+  service: name=logstash enabled=yes state=running
+
+# Configurar logstash per diva
+- name: Copy config files
+  copy: src={{ item }}
+        dest=/etc/logstash/conf.d/
+        owner=logstash group=logstash mode=0644
+  with_fileglob:
+    - roles/logstash/files/*.conf
+  notify: restart logstash
+
+# Crear directoris per logs
+- name: Create data directories
+  file: name={{item}} owner=logstash state=directory
+  with_items:
+    - /var/data/logstash/diva
+    - /var/data/logstash/acsls
+    - /var/data/logstash/sincedb
+  notify: restart logstash
+
+- name: Copy sample files
+  copy: src={{ item }}
+        dest=/var/data/logstash/diva
+        owner=logstash group=logstash mode=0644
+  with_items:
+    - requests_sample.log
+    - events_sample.log

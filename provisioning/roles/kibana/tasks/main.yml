@@ -1,0 +1,39 @@
+---
+# This role installs kibana
+
+- name: Clau GPG del repository logstash
+  rpm_key: state=present key=http://packages.elasticsearch.org/GPG-KEY-elasticsearch
+
+- name: Afegir repository elasticsearch
+  copy: src=kibana-4.6.repo
+        dest=/etc/yum.repos.d/
+        owner=root group=root mode=0644
+
+- name: Paquets a instal.lar
+  yum: name={{ item }} state=present
+  with_items:
+      - kibana
+      - elasticdump
+
+- name: Arrancada automatica
+  service: name=kibana enabled=yes state=stopped
+
+- name: Configurar nginx
+  template: src=nginx.conf.j2 dest=/etc/nginx/nginx.conf
+  notify: restart nginx
+
+- name: Create kibana directory
+  file: name=/home/kibana owner=kibana state=directory
+
+- name: carregar fitxers
+  copy: src= dest=/home/kibana owner=kibana group=kibana mode=u+x
+  with_items:
+    - kibana.json
+    - load-kibana.sh
+    - delete-day.sh
+    - delete-kibana.sh
+
+- name: carrega config de kibana
+  shell: /home/kibana/load-kibana.sh
+  become_user: kibana
+  notify: restart kibana

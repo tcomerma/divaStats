@@ -1,0 +1,12 @@
+---
+# This playbook deploys the whole application stack in this site.
+
+- name: apply common configuration to all nodes
+  hosts: all
+  user: vagrant
+  become: true
+  roles:
+    - base
+    - elasticsearch
+    - kibana
+    - logstash

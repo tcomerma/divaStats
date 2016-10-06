@@ -1,0 +1,36 @@
+---
+# This role installs and sets up base config
+
+- name: Paquets de SW basics
+  yum: name={{ item }} state=present
+  with_items:
+      - man
+      - libselinux-utils
+      - libselinux-python
+      - openssh-clients
+      - yum-cron
+      - bind-utils
+      - net-tools
+      - epel-release
+
+# Configuracio de sistema
+
+- name: Nom de la maquina
+  hostname: name={{fqdn}}
+
+- name: disable selinux
+  selinux: state=disabled
+
+- name: Disable firewall (Centos version 7)
+  service: name=firewalld state=stopped enabled=false
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version >= '7'
+
+- name: Disable firewall (Centos version 6)
+  service: name=iptables state=stopped enabled=false
+  when: ansible_distribution == 'CentOS' and ansible_distribution_version < '7'
+
+- name: Install nginx
+  yum: name=nginx state=present
+- name: Arrancada automatica de nginx
+  service: name=nginx enabled=yes  state=running
+  notify: restart nginx
